@@ -31,7 +31,7 @@ class ItemRepositoryTest {
 
     @PersistenceContext
     EntityManager em;
-    
+    // 영속성 컨텍스트를 사용하기 위해 @PersistenceContext 어노테이션을 이용해 EntityManager 빈을 주입한다.
     @Autowired
     ItemRepository itemRepository;
     //@Autowired를 통해 Bean을 주입한다.
@@ -118,13 +118,17 @@ class ItemRepositoryTest {
     public void queryDslTest() {
         this.createItemList();
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        //JPAQueryFactory를 이용하여 쿼리를 동적으로 생성한다. 생성자의 파라미터로는 EntityManager 객체를 넣어준다.
         QItem qItem = QItem.item;
+//        Querydsl을 통해 쿼리를 생성하기 위해 플러그인을 통해 자동으로 생성된 QItem 객체를 이용한다.
         JPAQuery<Item> query = queryFactory.selectFrom(qItem)
+//        자바 소스코드지만 SQL문과 비슷하게 소스를 작성할 수 있다.
                 .where(qItem.itemSellStatus.eq(ItemSellStatus.SELL))
                 .where(qItem.itemDetail.like("%" + "테스트 상품 상세 설명" + "%"))
                 .orderBy(qItem.price.desc());
 
         List<Item> itemList = query.fetch();
+        //JPAQuery 메소드 중 하나인 fetch를 이용해서 쿼리 결과를 리스트로 반환한다. fetch() 메소드 실행 시점에 쿼리문이 실행된다
 
         for (Item item : itemList) {
             System.out.println("item.toString() = " + item.toString());
@@ -163,12 +167,14 @@ class ItemRepositoryTest {
         this.createItemList2();
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
+        //BooleanBuilder는 쿼리에 들어갈 조건을 만들어주는 빌더라고 생각하면 된다. Predicate를 구현하고 있으며 메소드 체인 형식으로 사용한다.
         QItem item = QItem.item;
         String itemDetail = "테스트 상품 상세 설명";
         int price = 10003;
         String itemSellStat = "SELL";
 
         booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));
+        // 동적으로 쿼리를 추가 할 수 있다. 위의 코드는 상품의 판매 상태가 SELL일 때만 booleanBuilder에 판매상태 조건을 동적으로 추가하는 것을 볼 수 있다.
         booleanBuilder.and(item.price.gt(price));
         System.out.println(ItemSellStatus.SELL);
         if(StringUtils.equals(itemSellStat, ItemSellStatus.SELL)){
@@ -176,6 +182,8 @@ class ItemRepositoryTest {
         }
 
         Pageable pageable = PageRequest.of(0, 5);
+        //QueryDslPredicateExecutor 인터페이스에서 정의한 findAll() 메서드를 이용해 조건에 맞는 데이터를 Page 객체로 받아온다
+        //booleanBuilder는 Predicate의 구현체이기 때문에 파라미터로 넘길 수 있다.
         Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);
         System.out.println("total elements : " + itemPagingResult. getTotalElements ());
 
