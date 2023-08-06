@@ -70,15 +70,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // http 요청에 대한 보안을 설정한다.
         http.formLogin()
                 .loginPage("/members/login")
+                //로그인 페이지 URL을 설정한다.
                 .defaultSuccessUrl("/")
+                //로그인 성공 시 이동할 URL을 설정한다.
                 .usernameParameter("email")
+                //로그인 시 사용할 파라미터 이름으로 email을 지정한다.
                 .failureUrl("/members/login/error")
+                //로그인 실패 시 이동할 URL을 설정한다.
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                //로그아웃 URL을 설정한다.
                 .logoutSuccessUrl("/");
+                //로그아웃 성공 시 이동할 URL을 설정한다.
         http.authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
@@ -89,8 +96,10 @@ public class SecurityConfig {
         return http.build();
 
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    // 비밀번호를 데이터베이스에 그대로 저장하는 경우, 비밀번호가 그대로 노출되기 때문에 해시 함수를 이용하여 비밀번호를 암호화하여 저장한다.
 }

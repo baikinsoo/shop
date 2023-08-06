@@ -39,6 +39,7 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //UserDetailsService 인터페이스의 loadUserByUsername() 메소드를 오버라이딩한다.
         Member member = memberRepository.findByEmail(email);
+        //로그인할 유저의 email을 파라미터로 전달받는다.
 
         if (member == null) {
             throw new UsernameNotFoundException(email);
@@ -49,5 +50,6 @@ public class MemberService implements UserDetailsService {
                 .password(member.getPassword())
                 .roles(member.getRole().toString())
                 .build();
+        //builder 패턴을 이용해 User 객체에 회원의 이메일, 패스워드, 비밀번호, role을 파라미터로 넘긴다.
     }
 }

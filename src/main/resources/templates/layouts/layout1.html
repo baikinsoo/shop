@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="css"></th:block>
+
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link th:href="@{/css/layout1.css}" rel="stylesheet">
@@ -17,6 +20,7 @@
 </head>
 <body>
 <div th:replace="fragments/header::header"></div>
+
 <div layout:fragment="content" class="content">
 
 </div>
