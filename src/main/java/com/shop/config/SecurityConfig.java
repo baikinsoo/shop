@@ -91,10 +91,11 @@ public class SecurityConfig {
                 .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
+
         http.exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
-        return http.build();
 
+        return http.build();
     }
 
     @Bean
