@@ -123,6 +123,7 @@ public class OrderTest {
         em.clear();
 
         OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
+        //orElseThrow를 작성해주지 않으면 findById의 결과로 null이 나올 수 있기 때문에 반환 타입이 Optional로 바꿔줘야 한다.
         // clear로 영속성 컨텍스트를 비웠기 때문에 DB에서 다시 데이터를 조회하게 된다.
         System.out.println("orderItem.getOrder().getClass() = " + orderItem.getOrder().getClass());
         System.out.println("======================================");
