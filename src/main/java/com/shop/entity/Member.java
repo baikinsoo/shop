@@ -13,8 +13,9 @@ import javax.persistence.*;
 @Table(name="member")
 @Getter @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity{
     //회원 정보를 저장하는 Member 엔티티 생성
+    //BaseEntity를 상속 받는다.
 
     @Id
     @Column(name = "member_id")
