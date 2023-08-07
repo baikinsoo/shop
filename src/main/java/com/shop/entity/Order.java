@@ -20,8 +20,7 @@ public class Order extends BaseEntity{
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
-//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -31,9 +30,7 @@ public class Order extends BaseEntity{
     private OrderStatus orderStatus;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,
-    orphanRemoval = true)
-//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,
-//            orphanRemoval = true, fetch = FetchType.LAZY)
+            orphanRemoval = true, fetch = FetchType.LAZY)
 //    // 연관관계의 주인은 OrderItem이다. Order는 주인이 아니므로 읽기만 가능하기 때문에 mappedBy를 사용한다.
 //    // order를 작성한 이유는 OrderItem에 있는 Order에 의해 관리된다는 의미다.
 //    //CascadeType.ALL -> 부모 엔티티의 영속성 상태 변화를 자식 엔티티에 모두 전이하는 CascadeTypeAll 옵션을 설정한다.
