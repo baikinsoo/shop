@@ -8,9 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item>,
+ItemRepositoryCustom {
     //JpaRepository는 2개의 제네릭 타입을 사용하는데 첫 번째에는 엔티티 타입 클래스를 넣어주고,
     //두 번째는 기본키 타입을 넣어준다.
+
+    // ItemREpositoryCustom을 상속 받기 때문에 Querydsl로 작성한 getAdminItemPage 메소드를 사용하여 쿼리를 조회할 수 있다.
 
     List<Item> findByItemNm(String itemNm);
 
