@@ -4,8 +4,7 @@ import com.shop.constant.ItemSellStatus;
 import com.shop.repository.ItemRepository;
 import com.shop.repository.MemberRepository;
 import com.shop.repository.OrderItemRepository;
-import com.shop.repository.OrderReporsitory;
-import org.aspectj.weaver.ast.Or;
+import com.shop.repository.OrderRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ import java.time.LocalDateTime;
 public class OrderTest {
 
     @Autowired
-    OrderReporsitory orderReporsitory;
+    OrderRepository orderRepository;
 
     @Autowired
     ItemRepository itemRepository;
@@ -65,12 +64,12 @@ public class OrderTest {
             //영속성 컨텍스트에 저장되지 않은 orderItem 엔티티를 order 엔티티에 담아준다.
         }
 
-        orderReporsitory.saveAndFlush(order);
+        orderRepository.saveAndFlush(order);
         //order 엔티티를 저장하면서 강제로 flush를 호출하여 영속성 컨텍스트에 있는 객체들을 데이터베이스에 반영한다.
         em.clear();
         //영속성 컨텍스트 초기화
 
-        Order savedOrder = orderReporsitory.findById(order.getId())
+        Order savedOrder = orderRepository.findById(order.getId())
                 .orElseThrow(EntityNotFoundException::new);
         //영속성 컨텍스트를 초기화했기 때문에 데이터베이스에서 주문 엔티티를 조회한다.
         Assertions.assertEquals(3, savedOrder.getOrderItems().size());
@@ -97,7 +96,7 @@ public class OrderTest {
         memberRepository.save(member);
 
         order.setMember(member);
-        orderReporsitory.save(order);
+        orderRepository.save(order);
         return order;
     }
 
