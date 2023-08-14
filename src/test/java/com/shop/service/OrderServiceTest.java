@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.constant.ItemSellStatus;
+import com.shop.constant.OrderStatus;
 import com.shop.dto.OrderDto;
 import com.shop.entity.Item;
 import com.shop.entity.Member;
@@ -75,5 +76,31 @@ class OrderServiceTest {
         int totalPrice = orderDto.getCount()*item.getPrice();
 
         assertEquals(totalPrice, order.getTotalPrice());
+    }
+
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder(){
+        Item item = saveItem();
+
+        Member member = saveMember();
+//        1,2. 상품과 회원 데이터를 생성한다. 상품의 재고는 100개다.
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCount(10);
+        orderDto.setItemId(item.getId());
+        Long orderId = orderService.order(orderDto, member.getEmail());
+//        3. 주문 데이터를 생성한다. 총 10개의 상품을 주문한다.
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+//        4. 생성한 주문 엔티티를 조회한다.
+        orderService.cancelOrder(orderId);
+//        5. 해당 주문을 취소한다.
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+//        6. 주문의 상태가 취소 상태라면 테스트가 통과한다.
+        assertEquals(100, item.getStockNumber());
+//        7. 취소 후 상품의 재고가 처음 재고 개수인 100개와 동일하다면 테스트를 통과한다.
     }
 }
