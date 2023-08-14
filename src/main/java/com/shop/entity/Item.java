@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name="item")
@@ -57,6 +56,7 @@ public class Item extends BaseEntity{
         this.itemSellStatus = itemFormDto.getItemSellStatus();
     }
 
+    //남은 재고 수량 확인
     public void removeStock(int stockNumber) {
         int restStock = this.stockNumber - stockNumber;
         //1. 상품의 재고 수량에서 주문 후 남은 재고 수량을 구한다.

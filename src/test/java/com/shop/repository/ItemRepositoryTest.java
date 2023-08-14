@@ -21,8 +21,6 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 //통합 테스트를 위한 어노테이션, 실제 애플리케이션을 구동할 때처럼 모든 Bean을 IoC 컨테이너에 등록한다.
 @TestPropertySource(locations = "classpath:application-test.properties")

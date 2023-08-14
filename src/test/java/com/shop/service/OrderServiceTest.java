@@ -1,7 +1,6 @@
 package com.shop.service;
 
 import com.shop.constant.ItemSellStatus;
-import com.shop.constant.OrderStatus;
 import com.shop.dto.OrderDto;
 import com.shop.entity.Item;
 import com.shop.entity.Member;
