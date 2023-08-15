@@ -15,7 +15,7 @@
 
             calculateToalPrice();
 
-            $("#count").change( function(){
+            $("#count").change(function(){
                 calculateToalPrice();
             });
         });
@@ -23,6 +23,10 @@
         function calculateToalPrice(){
             //1. 현재 주문할 수량과 상품 한 개당 가격을 곱해서 결제 금액을 구해주는 함수다.
             var count = $("#count").val();
+            //'#'기호는 jQuery와 같은 javaScript 라이브러리에서 HTML 요소를 선택하기 위한 선택자이다.
+            //HTML 내에서 ID 값을 찾아 해당 ID 값을 가져온다.
+            // <input type="number" name="count" id="count" className="form-control" value="1" min="1">
+            // 에서 count에 입력된 값을 가져온다.
             var price = $("#price").val();
             var totalPrice = price*count;
             $("#totalPrice").html(totalPrice + '원');
@@ -113,6 +117,7 @@
 <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
 
     <input type="hidden" id="itemId" th:value="${item.id}">
+    <!--ItemController에서 넘어온 item을 통해 해당 정보를 받아온다.-->
 
     <div class="d-flex">
         <div class="repImgDiv">

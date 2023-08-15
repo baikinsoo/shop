@@ -72,6 +72,8 @@ public class OrderController {
 //        2. 현재 로그인한 회원은 이메일과 페이징 객체를 파라미터로 전달하여
 //        화면에 전달한 주문 목록 데이터를 리턴 값으로 받는다.
 
+//        principal은 현재 로그인한 사용자의 정보를 가지고 있다. (여기선 Name이 email에 해당한다.)
+
         model.addAttribute("orders", orderHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("maxPage", 5);
