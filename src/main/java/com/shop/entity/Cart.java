@@ -23,4 +23,10 @@ public class Cart extends BaseEntity{
     @JoinColumn(name = "member_id")
     //매핑할 외래키를 지정한다. name 속성에는 매핑할 외래키의 이름을 설정한다.
     private Member member;
+
+    public static Cart createCart(Member member) {
+        Cart cart = new Cart();
+        cart.setMember(member);
+        return cart;
+    }
 }
