@@ -68,6 +68,8 @@ public class CartController {
 //    장바구니 상품의 수량만 업데이트하기 때문에 @PatchMapping을 사용한다.
     public @ResponseBody ResponseEntity updateCartItem(@PathVariable("cartItemId") Long cartItemId,
                                                        int count, Principal principal) {
+//        cartList.html에서 /cartItem/{cartItemId} 경로로 요청을 보내는데, ?count= url로 요청을 보낸다.
+//        updateCartItem 파라미터에서 int count 앞에 @RequestParam 어노테이션이 생략되었다고 보면 된다.
 
         if (count <= 0) {
 //            2. 장바구니에 담겨있는 상품의 개수를 0개 이하로 업데이트 요청을 할 때 에러 메시지를 담아서 반환한다.
