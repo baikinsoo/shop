@@ -100,6 +100,7 @@ public class OrderService {
     public Long orders(List<OrderDto> orderDtoList, String email) {
 
         Member member = memberRepository.findByEmail(email);
+
         List<OrderItem> orderItemList = new ArrayList<>();
 
         for (OrderDto orderDto : orderDtoList) {
