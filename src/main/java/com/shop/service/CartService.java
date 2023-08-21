@@ -135,8 +135,6 @@ public class CartService {
                     .orElseThrow(EntityNotFoundException::new);
             cartItemRepository.delete(cartItem);
         }
-
         return orderId;
     }
-
 }
